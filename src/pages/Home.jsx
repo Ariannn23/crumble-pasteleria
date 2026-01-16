@@ -12,15 +12,7 @@ const Home = () => {
           <HeroCarousel />
         </div>
         <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-6">
-            {/* <h1 className="text-white font-heading text-4xl md:text-5xl drop-shadow-lg">
-              Crumble
-            </h1>
-            <p className="text-white opacity-90 mt-2 max-w-2xl drop-shadow-sm">
-              Pastelería artesanal — tortas, cheesecakes y postres hechos a mano
-              con ingredientes locales.
-            </p> */}
-          </div>
+          <div className="max-w-7xl mx-auto px-6"></div>
         </div>
       </section>
 
