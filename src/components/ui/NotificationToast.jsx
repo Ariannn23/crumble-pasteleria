@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiCheck, FiX } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
@@ -9,8 +9,7 @@ const FADE_MS = 600; // mayor duración para transiciones más suaves
 const NotificationToast = () => {
   const { notification, setNotification } = useCart();
   const [toasts, setToasts] = useState([]); // array of {id,message,leaving,collapsed}
-  const heights = useRef({});
-  const [, forceRerender] = useState(0);
+  const [heights, setHeights] = useState({});
   const COLLAPSE_MS = 180; // duración del colapso después del fade
 
   // helper to add toast
@@ -22,14 +21,14 @@ const NotificationToast = () => {
     // schedule start of fade before collapse
     setTimeout(() => {
       setToasts((s) =>
-        s.map((x) => (x.id === id ? { ...x, leaving: true } : x))
+        s.map((x) => (x.id === id ? { ...x, leaving: true } : x)),
       );
     }, AUTO_CLOSE - FADE_MS);
 
     // after fade finishes, collapse height so others slide up smoothly
     setTimeout(() => {
       setToasts((s) =>
-        s.map((x) => (x.id === id ? { ...x, collapsed: true } : x))
+        s.map((x) => (x.id === id ? { ...x, collapsed: true } : x)),
       );
     }, AUTO_CLOSE);
 
@@ -42,10 +41,11 @@ const NotificationToast = () => {
   // mirror context notification into queue
   useEffect(() => {
     if (notification?.open) {
-      addToast(notification.message);
+      addToast(notification.message); // eslint-disable-line react-hooks/set-state-in-effect
       // clear context notification
       setNotification({ open: false, message: "" });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification?.open]);
 
   // fallback event listener
@@ -64,13 +64,13 @@ const NotificationToast = () => {
     // after fade, collapse height so others slide up
     setTimeout(() => {
       setToasts((s) =>
-        s.map((x) => (x.id === id ? { ...x, collapsed: true } : x))
+        s.map((x) => (x.id === id ? { ...x, collapsed: true } : x)),
       );
     }, FADE_MS);
     // remove after collapse
     setTimeout(
       () => setToasts((s) => s.filter((x) => x.id !== id)),
-      FADE_MS + COLLAPSE_MS
+      FADE_MS + COLLAPSE_MS,
     );
   };
 
@@ -84,14 +84,16 @@ const NotificationToast = () => {
           ref={(el) => {
             if (el) {
               const h = el.scrollHeight;
-              if (heights.current[t.id] !== h) {
-                heights.current[t.id] = h;
-                forceRerender((n) => n + 1);
-              }
+              setHeights((prev) => {
+                if (prev[t.id] !== h) {
+                  return { ...prev, [t.id]: h };
+                }
+                return prev;
+              });
             }
           }}
           style={{
-            maxHeight: t.collapsed ? 0 : `${heights.current[t.id] || 140}px`,
+            maxHeight: t.collapsed ? 0 : `${heights[t.id] || 140}px`,
             transition: `max-height ${COLLAPSE_MS}ms ease, opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1), transform ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
             overflow: "hidden",
             opacity: t.leaving ? 0 : 1,

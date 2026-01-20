@@ -16,9 +16,9 @@ const Header = () => {
 
   useEffect(() => {
     if (totalItems > prevTotal.current) {
-      setBump(true);
-      const t = setTimeout(() => setBump(false), 350);
       prevTotal.current = totalItems;
+      setBump(true); // eslint-disable-line react-hooks/set-state-in-effect
+      const t = setTimeout(() => setBump(false), 350);
       return () => clearTimeout(t);
     }
     prevTotal.current = totalItems;

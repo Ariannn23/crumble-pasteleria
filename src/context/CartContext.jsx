@@ -19,10 +19,9 @@ export const CartProvider = ({ children }) => {
   });
   const notificationTimeout = useRef(null);
 
-  // ✅ NORMALIZA PRECIO Y USA qty
   const addToCart = (product) => {
     const price = parseFloat(
-      String(product.price).replace("S/.", "").replace("S/", "").trim()
+      String(product.price).replace("S/.", "").replace("S/", "").trim(),
     );
 
     if (isNaN(price)) {
@@ -35,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
         );
       }
 
@@ -69,7 +68,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (id, qty) => {
     if (qty < 1) return;
     setCartItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, qty } : item))
+      prev.map((item) => (item.id === id ? { ...item, qty } : item)),
     );
   };
 
@@ -80,7 +79,7 @@ export const CartProvider = ({ children }) => {
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.qty,
-    0
+    0,
   );
 
   return (
@@ -103,4 +102,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => useContext(CartContext);

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import ProductCard from "../components/products/ProductCard";
 import { products } from "../data/products";
 
-const Products = ({ showHeading = true, wrapSection = true, limit }) => {
+const Products = ({ showHeading = true, limit }) => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("default");
@@ -14,7 +14,7 @@ const Products = ({ showHeading = true, wrapSection = true, limit }) => {
 
   const filtered = useMemo(() => {
     let list = products.filter((p) =>
-      p.name.toLowerCase().includes(query.trim().toLowerCase())
+      p.name.toLowerCase().includes(query.trim().toLowerCase()),
     );
 
     if (category !== "All") {
@@ -39,22 +39,22 @@ const Products = ({ showHeading = true, wrapSection = true, limit }) => {
     </div>
   );
 
-//   if (!wrapSection) {
-//     return (
-//       <div>
-//         {/* controls when embedded without section */}
-//         <div className="flex gap-3 mb-4">
-//           <input
-//             value={query}
-//             onChange={(e) => setQuery(e.target.value)}
-//             placeholder="Buscar productos..."
-//             className="px-3 py-2 border rounded w-full"
-//           />
-//         </div>
-//         {grid}
-//       </div>
-//     );
-//   }
+  //   if (!wrapSection) {
+  //     return (
+  //       <div>
+  //         {/* controls when embedded without section */}
+  //         <div className="flex gap-3 mb-4">
+  //           <input
+  //             value={query}
+  //             onChange={(e) => setQuery(e.target.value)}
+  //             placeholder="Buscar productos..."
+  //             className="px-3 py-2 border rounded w-full"
+  //           />
+  //         </div>
+  //         {grid}
+  //       </div>
+  //     );
+  //   }
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
