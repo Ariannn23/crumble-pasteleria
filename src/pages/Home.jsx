@@ -1,5 +1,6 @@
 import Products from "./Products";
 import { products } from "../data/products";
+import { Link } from "react-router-dom";
 import HeroCarousel from "../components/ui/HeroCarousel";
 import ServicesCarousel from "../components/ui/ServicesCarousel";
 
@@ -42,14 +43,12 @@ const Home = () => {
           </div>
 
           <div className="flex justify-center">
-            <a
-              href="/shop"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/shop"
               className="bg-crumble-chocolate text-white px-4 py-2 rounded-md shadow hover:opacity-90 text-sm"
             >
               Pedir ahora
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -98,14 +97,12 @@ const Home = () => {
           <div>
             <Products showHeading={false} wrapSection={false} limit={4} />
             <div className="flex justify-center mt-6">
-              <a
-                href="/shop"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-md border border-crumble-chocolate text-crumble-chocolate hover:bg-crumble-cream hover:shadow-md transform transition duration-150 ease-in-out hover:-translate-y-1 active:translate-y-1 focus:outline-none focus:ring-2 focus:ring-crumble-chocolate cursor-pointer"
+              <Link
+                to="/shop"
+                className="bg-crumble-chocolate text-white px-4 py-2 rounded-md shadow hover:opacity-90 text-sm"
               >
-                Ver más
-              </a>
+                Pedir ahora
+              </Link>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FiShoppingCart, FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import CartDrawer from "../cart/CartDrawer";
 import logo from "../../assets/logo4.png";
@@ -29,7 +30,7 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* LOGO */}
-            <a href="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <img
                 src={logo}
                 alt="Crumble Pastelería"
@@ -43,22 +44,20 @@ const Header = () => {
                   Pastelería Artesanal
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* NAV DESKTOP */}
             <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-              <a href="/" className="hover:text-crumble-rose">
+              <Link to="/" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Inicio
                 </span>
-              </a>
-
-              <a href="/shop" className="hover:text-crumble-rose">
+              </Link>
+              <Link to="/shop" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Productos
                 </span>
-              </a>
-
+              </Link>
               <a href="/#nosotros" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Nosotros
@@ -105,12 +104,11 @@ const Header = () => {
                 </div>
               </div>
 
-              <a href="/shop" className="hover:text-crumble-rose">
+              <Link to="/shop" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Tiendas
                 </span>
-              </a>
-
+              </Link>
               {/* CARRITO DESKTOP */}
               <button onClick={() => setCartOpen(true)} className="relative">
                 <FiShoppingCart size={22} />
@@ -164,18 +162,18 @@ const Header = () => {
               </div>
 
               <nav className="flex flex-col gap-4 text-sm">
-                <a href="/">
+                <Link to="/">
                   {" "}
                   <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                     Inicio
                   </span>{" "}
-                </a>
-                <a href="/#nosotros">
+                </Link>
+                <Link to="/#nosotros">
                   {" "}
                   <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                     Nosotros
                   </span>{" "}
-                </a>
+                </Link>
 
                 <div>
                   <span className="font-medium">Categorías</span>
@@ -201,7 +199,7 @@ const Header = () => {
                   </div>
                 </div>
 
-                <a href="/shop">Tiendas</a>
+                <Link to="/shop">Tiendas</Link>
               </nav>
             </div>
           </div>
