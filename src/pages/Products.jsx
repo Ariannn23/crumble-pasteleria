@@ -39,22 +39,10 @@ const Products = ({ showHeading = true, limit }) => {
     </div>
   );
 
-  //   if (!wrapSection) {
-  //     return (
-  //       <div>
-  //         {/* controls when embedded without section */}
-  //         <div className="flex gap-3 mb-4">
-  //           <input
-  //             value={query}
-  //             onChange={(e) => setQuery(e.target.value)}
-  //             placeholder="Buscar productos..."
-  //             className="px-3 py-2 border rounded w-full"
-  //           />
-  //         </div>
-  //         {grid}
-  //       </div>
-  //     );
-  //   }
+  // Si no se muestra el heading, devolver solo el grid sin wrapper
+  if (!showHeading) {
+    return grid;
+  }
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
@@ -69,12 +57,12 @@ const Products = ({ showHeading = true, limit }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Buscar..."
-              className="px-3 py-2 border rounded"
+              className="px-3 py-1.5 border rounded text-sm w-48"
             />
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="px-3 py-2 border rounded"
+              className="px-3 py-1.5 border rounded text-sm"
             >
               {categories.map((c) => (
                 <option key={c} value={c}>
@@ -86,12 +74,12 @@ const Products = ({ showHeading = true, limit }) => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="px-3 py-2 border rounded"
+              className="px-3 py-1.5 border rounded text-sm"
             >
-              <option value="default">Orden por</option>
-              <option value="price-asc">Precio: bajo a alto</option>
-              <option value="price-desc">Precio: alto a bajo</option>
-              <option value="name-asc">Nombre A–Z</option>
+              <option value="default">Ordenar</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="name-asc">Nombre: A-Z</option>
             </select>
           </div>
         </div>
