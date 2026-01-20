@@ -1,52 +1,66 @@
+import { FiShoppingCart, FiEye } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
 
+  const handleAddToCart = (e) => {
+    e.preventDefault(); // Prevenir navegación al hacer click en el botón
+    e.stopPropagation();
+    addToCart(product);
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition h-full flex flex-col">
-      <div className="relative group">
+    <div className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      {/* Imagen */}
+      <div className="relative overflow-hidden h-48">
         <img
           src={product.image}
           alt={product.name}
-          className="h-48 w-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
         />
 
-        {/* overlay button that slides down from top */}
-        <div className="absolute inset-0 flex items-start justify-center pointer-events-none">
-          <button
-            onClick={() => {
-              /* placeholder: navigate to detail or open modal */
-              window.location.href = `/product/${product.id}`;
-            }}
-            className="mt-3 z-10 pointer-events-auto bg-white/90 text-crumble-chocolate px-4 py-2 rounded-full shadow-md transform -translate-y-full group-hover:translate-y-0 transition-all duration-300"
-          >
-            Detalles
-          </button>
-        </div>
+        {/* Botón de ver detalles (ojo) */}
+        <Link
+          to={`/product/${product.id}`}
+          className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-crumble-primary p-2 rounded-full shadow-lg hover:bg-crumble-primary hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
+          aria-label={`Ver detalles de ${product.name}`}
+        >
+          <FiEye size={18} />
+        </Link>
       </div>
 
-      <div className="p-4 flex flex-col flex-grow">
-        <h3
-          className="font-medium text-lg mb-1"
-          style={{
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
+      {/* Contenido */}
+      <div className="p-4">
+        {/* Nombre del producto */}
+        <h3 className="font-heading text-lg mb-2 text-crumble-dark truncate">
           {product.name}
         </h3>
 
-        <p className="text-sm opacity-70 mb-3">S/. {product.price}</p>
+        {/* Precio y Botón */}
+        <div className="flex items-center justify-between">
+          {/* Precio con estilo de ticket */}
+          <div className="relative">
+            <div className="bg-gradient-to-r from-crumble-primary to-crumble-rose text-white px-3 py-1 rounded-sm shadow-md opacity-90 ticket-badge">
+              <span className="text-sm font-bold">
+                S/. {product.price.toFixed(2)}
+              </span>
+            </div>
+          </div>
 
-        <button
-          onClick={() => addToCart(product)}
-          className="w-full bg-crumble-chocolate text-white py-2 rounded-lg hover:bg-crumble-rose hover:text-crumble-dark transition mt-auto"
-        >
-          Agregar al carrito
-        </button>
+          {/* Botón Añadir */}
+          <button
+            onClick={handleAddToCart}
+            className="group/btn bg-crumble-dark text-white px-3 py-2 rounded-full hover:bg-crumble-primary transition-all duration-500 flex items-center gap-2 overflow-hidden"
+            aria-label={`Añadir ${product.name} al carrito`}
+          >
+            <FiShoppingCart size={18} className="flex-shrink-0" />
+            <span className="max-w-0 group-hover/btn:max-w-xs transition-all duration-500 overflow-hidden whitespace-nowrap text-sm font-medium">
+              Agregar
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
