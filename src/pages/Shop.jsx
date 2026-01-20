@@ -8,7 +8,7 @@ const Shop = () => {
   const categoryFromUrl = searchParams.get("category");
 
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState(categoryFromUrl || "All");
+  const [category, setCategory] = useState(categoryFromUrl || "Todos");
 
   // Actualizar categoría cuando cambia el parámetro URL
   useEffect(() => {
@@ -19,7 +19,7 @@ const Shop = () => {
 
   const categories = useMemo(() => {
     const set = new Set(products.map((p) => p.category));
-    return ["All", ...Array.from(set)];
+    return ["Todos", ...Array.from(set)];
   }, []);
 
   const filtered = useMemo(() => {
@@ -27,16 +27,22 @@ const Shop = () => {
       p.name.toLowerCase().includes(query.trim().toLowerCase()),
     );
 
-    if (category !== "All") list = list.filter((p) => p.category === category);
+    if (category !== "Todos")
+      list = list.filter((p) => p.category === category);
     return list;
   }, [query, category]);
 
   return (
     <main className="min-h-screen bg-[#ffe8d6] page-transition">
       <div className="max-w-7xl mx-auto px-6 py-6">
-        <header className="mb-6">
-          <h1 className="text-4xl font-heading">Tienda</h1>
-          <p className="text-gray-600 mt-2">Todo lo que preparamos</p>
+        <header className="mb-12">
+          <h1 className="text-4xl font-heading text-crumble-dark mb-3">
+            Tienda
+          </h1>
+          <div className="h-1 w-24 bg-crumble-primary rounded-full mb-4"></div>
+          <p className="text-gray-600 font-light text-lg">
+            Todo lo que preparamos con amor para ti.
+          </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -54,22 +60,21 @@ const Shop = () => {
               <h3 className="text-xs font-semibold text-crumble-dark mb-2 uppercase tracking-wide">
                 Categorías
               </h3>
-              <ul className="space-y-1">
+              <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
                 {categories.map((c) => (
-                  <li key={c}>
-                    <button
-                      onClick={() => setCategory(c)}
-                      className={`text-left w-full px-2 py-1.5 text-sm rounded transition ${
-                        category === c
-                          ? "bg-crumble-cream font-medium"
-                          : "hover:bg-gray-50"
-                      }`}
-                    >
-                      {c}
-                    </button>
-                  </li>
+                  <button
+                    key={c}
+                    onClick={() => setCategory(c)}
+                    className={`text-left px-4 py-2 text-sm transition-all duration-300 font-medium whitespace-nowrap border rounded-tl-xl rounded-br-xl rounded-tr-none rounded-bl-none ${
+                      category === c
+                        ? "bg-crumble-primary text-white border-crumble-primary shadow-md transform scale-105" // Active state
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-crumble-rose/10 hover:border-crumble-rose hover:text-crumble-dark" // Inactive state
+                    }`}
+                  >
+                    {c}
+                  </button>
                 ))}
-              </ul>
+              </div>
             </div>
           </aside>
 

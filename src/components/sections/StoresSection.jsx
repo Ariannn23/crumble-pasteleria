@@ -92,7 +92,7 @@ const StoresSection = () => {
     >
       {/* HEADER */}
       <div className="text-center mb-12">
-        <h2 className="font-heading text-4xl mb-2 text-crumble-dark">
+        <h2 className="font-heading text-4xl mb-3 text-crumble-dark">
           Nuestras Tiendas
         </h2>
         <div className="h-1 w-24 bg-crumble-primary mx-auto rounded-full" />

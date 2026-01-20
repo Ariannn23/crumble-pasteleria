@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
   });
   const notificationTimeout = useRef(null);
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity = 1) => {
     const price = parseFloat(
       String(product.price).replace("S/.", "").replace("S/", "").trim(),
     );
@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
+          item.id === product.id ? { ...item, qty: item.qty + quantity } : item,
         );
       }
 
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
           id: product.id,
           name: product.name,
           price, // ✅ número real
-          qty: 1,
+          qty: quantity,
         },
       ];
     });

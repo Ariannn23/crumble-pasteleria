@@ -58,6 +58,13 @@ const Header = () => {
                   Inicio
                 </span>
               </Link>
+
+              <Link to="/nosotros" className="hover:text-crumble-peach">
+                <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
+                  Nosotros
+                </span>
+              </Link>
+
               <Link to="/shop" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Productos
@@ -134,6 +141,15 @@ const Header = () => {
               >
                 Inicio
               </Link>
+
+              <Link
+                to="/nosotros"
+                className="hover:text-crumble-rose"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Nosotros
+              </Link>
+
               <Link
                 to="/shop"
                 className="hover:text-crumble-rose"

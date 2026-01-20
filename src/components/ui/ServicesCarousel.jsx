@@ -132,7 +132,7 @@ const ServicesCarousel = ({ className = "" }) => {
   }, []);
 
   return (
-    <div className={`overflow-hidden ${className}`}>
+    <div className={`overflow-hidden py-8 -my-8 ${className}`}>
       <div
         ref={containerRef}
         className="flex gap-4 items-stretch"
@@ -141,16 +141,19 @@ const ServicesCarousel = ({ className = "" }) => {
         {[...services, ...services].map((s, i) => (
           <div
             key={`${s.id}-${i}`}
-            className="min-w-[260px] bg-white rounded-lg p-6 shadow-sm border border-gray-100 flex-shrink-0 flex flex-col justify-between"
-            style={{ background: "white" }}
+            className="min-w-[260px] bg-white rounded-xl p-6 shadow-md border border-gray-100 flex-shrink-0 flex flex-col justify-between transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl cursor-pointer group"
           >
             <div className="flex items-center gap-3 mb-3 text-crumble-chocolate">
-              <div className="w-12 h-12 rounded-full bg-crumble-cream flex items-center justify-center text-xl">
+              <div className="w-12 h-12 rounded-full bg-crumble-cream flex items-center justify-center text-xl group-hover:bg-crumble-primary group-hover:text-white transition-colors duration-300">
                 {s.icon}
               </div>
-              <h4 className="font-medium text-lg">{s.title}</h4>
+              <h4 className="font-heading font-medium text-lg text-crumble-dark">
+                {s.title}
+              </h4>
             </div>
-            <p className="text-sm text-gray-600 flex-1">{s.desc}</p>
+            <p className="text-sm text-gray-600 flex-1 leading-relaxed">
+              {s.desc}
+            </p>
           </div>
         ))}
       </div>

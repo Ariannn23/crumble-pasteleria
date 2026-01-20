@@ -41,7 +41,7 @@ const OrderTicket = ({ open, onClose, order, onWhatsApp }) => {
             </div>
 
             {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto pr-2 space-y-4 min-h-0">
+            <div className="flex-1 overflow-y-auto pr-2 space-y-4 min-h-0 custom-scrollbar">
               {/* DATOS */}
               <div className="space-y-2 text-sm text-gray-700 bg-white p-4 rounded-xl border border-crumble-peach/30 shadow-sm shrink-0">
                 <div className="flex justify-between">
