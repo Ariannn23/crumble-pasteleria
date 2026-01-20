@@ -3,10 +3,17 @@ import { products } from "../data/products";
 import { Link } from "react-router-dom";
 import HeroCarousel from "../components/ui/HeroCarousel";
 import ServicesCarousel from "../components/ui/ServicesCarousel";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import Button from "../components/ui/Button";
 
 const Home = () => {
+  const productsRef = useScrollAnimation();
+  const servicesRef = useScrollAnimation();
+  const historyRef = useScrollAnimation();
+  const catalogRef = useScrollAnimation();
+
   return (
-    <>
+    <div className="page-transition">
       {/* HERO grande: carrusel full-width */}
       <section className="relative">
         <div className="w-full">
@@ -18,7 +25,7 @@ const Home = () => {
       </section>
 
       {/* Productos más pedidos (grid) */}
-      <section className="py-8">
+      <section ref={productsRef} className="py-8 scroll-fade-up">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="font-heading text-3xl mb-4">Productos Recomendados</h2>
 
@@ -43,17 +50,16 @@ const Home = () => {
           </div>
 
           <div className="flex justify-center">
-            <Link
-              to="/shop"
-              className="bg-crumble-chocolate text-white px-4 py-2 rounded-md shadow hover:opacity-90 text-sm"
-            >
-              Pedir ahora
+            <Link to="/shop">
+              <Button variant="primary" size="md">
+                Pedir ahora
+              </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-4">
+      <section ref={servicesRef} className="py-4 scroll-fade-up">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="font-heading text-3xl mb-2">Nuestros servicios</h2>
           <ServicesCarousel />
@@ -61,7 +67,10 @@ const Home = () => {
       </section>
 
       {/* HISTORIA + IMAGEN FIJA */}
-      <section className="py-12 bg-crumble-cream">
+      <section
+        ref={historyRef}
+        className="py-12 bg-crumble-cream scroll-fade-up"
+      >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="font-heading text-3xl mb-8">Nuestra Historia</h2>
@@ -91,23 +100,22 @@ const Home = () => {
       </section>
 
       {/* PRODUCTOS */}
-      <section className="py-12">
+      <section ref={catalogRef} className="py-12 scroll-fade-up">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="font-heading text-3xl mb-8">Nuestros Productos</h2>
+          <h2 className="font-heading text-3xl mb-6">Nuestros Productos</h2>
           <div>
             <Products showHeading={false} wrapSection={false} limit={4} />
             <div className="flex justify-center mt-6">
-              <Link
-                to="/shop"
-                className="bg-crumble-chocolate text-white px-4 py-2 rounded-md shadow hover:opacity-90 text-sm"
-              >
-                Pedir ahora
+              <Link to="/shop">
+                <Button variant="primary" size="md">
+                  Ver todos los productos
+                </Button>
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

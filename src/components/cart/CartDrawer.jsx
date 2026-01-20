@@ -3,6 +3,7 @@ import { useCart } from "../../context/CartContext";
 import { useState } from "react";
 import CheckoutModal from "./CheckoutModal";
 import OrderTicket from "../checkout/OrderTicket";
+import Button from "../ui/Button";
 
 const CartDrawer = ({ open, onClose }) => {
   const { cartItems, removeFromCart, clearCart } = useCart();
@@ -72,12 +73,14 @@ const CartDrawer = ({ open, onClose }) => {
               <span>S/. {total.toFixed(2)}</span>
             </div>
 
-            <button
+            <Button
+              variant="primary"
+              size="lg"
+              fullWidth
               onClick={() => setCheckoutOpen(true)}
-              className="w-full bg-crumble-chocolate text-white py-3 rounded-lg font-medium"
             >
               Realizar pedido
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -118,8 +121,8 @@ const CartDrawer = ({ open, onClose }) => {
             order.paymentMethod === "cash"
               ? "Efectivo"
               : order.paymentMethod === "card"
-              ? "Tarjeta"
-              : order.paymentMethod;
+                ? "Tarjeta"
+                : order.paymentMethod;
 
           const storeInfo =
             order.deliveryType === "pickup"
@@ -133,15 +136,15 @@ const CartDrawer = ({ open, onClose }) => {
           }${storeInfo ? `${storeInfo}\n` : ""}\nProductos:\n${order.items
             .map(
               (i) =>
-                `- ${i.qty}x ${i.name} - S/. ${(i.qty * i.price).toFixed(2)}`
+                `- ${i.qty}x ${i.name} - S/. ${(i.qty * i.price).toFixed(2)}`,
             )
             .join("\n")}\n\nTotal: S/. ${order.total.toFixed(
-            2
+            2,
           )}\nPago: ${paymentLabel}`;
 
           window.open(
             `https://wa.me/51954222598?text=${encodeURIComponent(message)}`,
-            "_blank"
+            "_blank",
           );
         }}
       />

@@ -1,12 +1,27 @@
+/* Importar fuentes de Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: "Inter", sans-serif;
-  background-color: #fff7ed;
-  color: #3f2a1d;
+  font-family: "Lato", sans-serif;
+  background-color: #ffe8d6; /* crumble-cream */
+  color: #751c19; /* crumble-dark */
 }
+
+/* Hacer los headings más gruesos por defecto */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-weight: 600;
+}
+
 @keyframes slide-in {
   from {
     transform: translateX(100%);
@@ -27,10 +42,140 @@ body {
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .animate-slide-in {
   animation: slide-in 0.3s ease-out forwards;
 }
 
 .animate-scale-in {
   animation: scale-in 0.25s ease-out forwards;
+}
+
+.page-transition {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Animaciones de scroll */
+.scroll-animate {
+  opacity: 0;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+}
+
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.scroll-fade-up.animate-in {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.scroll-fade-left {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.scroll-fade-left.animate-in {
+  animation: fade-in-left 0.6s ease-out forwards;
+}
+
+.scroll-fade-right {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.scroll-fade-right.animate-in {
+  animation: fade-in-right 0.6s ease-out forwards;
+}
+
+/* Delays para animaciones escalonadas */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Estilo de ticket para precios */
+.price-ticket {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 232, 214, 0.4) 0%,
+    rgba(255, 232, 214, 0.6) 100%
+  );
+  border: 1px dashed rgba(117, 28, 25, 0.2);
+  clip-path: polygon(
+    0% 5px,
+    5px 5px,
+    5px 0%,
+    calc(100% - 5px) 0%,
+    calc(100% - 5px) 5px,
+    100% 5px,
+    100% calc(100% - 5px),
+    calc(100% - 5px) calc(100% - 5px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    5px calc(100% - 5px),
+    0% calc(100% - 5px)
+  );
 }

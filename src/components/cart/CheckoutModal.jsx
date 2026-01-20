@@ -7,7 +7,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
   const totalFromCart = Array.isArray(cart)
     ? cart.reduce(
         (acc, item) => acc + item.price * (item.quantity ?? item.qty ?? 0),
-        0
+        0,
       )
     : 0;
 
@@ -61,7 +61,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
                     onClick={() => setDeliveryType("delivery")}
                     className={`flex-1 py-2 rounded-lg border ${
                       deliveryType === "delivery"
-                        ? "bg-crumble-cream border-crumble-chocolate"
+                        ? "bg-crumble-cream border-crumble-primary"
                         : "border-gray-300"
                     }`}
                   >
@@ -112,7 +112,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
                 {deliveryType === "pickup" && (
                   <div className="mt-2 p-3 border rounded-lg bg-gray-50">
                     <div className="flex items-start gap-3">
-                      <FiMapPin className="text-crumble-chocolate mt-1" />
+                      <FiMapPin className="text-crumble-primary mt-1" />
                       <div>
                         <p className="font-medium">Recojo en tienda</p>
                         <p className="text-xs text-gray-500">
@@ -137,7 +137,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
 
               <button
                 onClick={() => setStep(2)}
-                className="w-full bg-crumble-chocolate text-white py-3 rounded-lg mt-5"
+                className="w-full bg-crumble-primary text-white py-3 rounded-lg mt-5 hover:bg-crumble-secondary transition"
               >
                 Continuar
               </button>
@@ -214,7 +214,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
                   if (onContinue) onContinue(data);
                   onClose();
                 }}
-                className="w-full bg-crumble-chocolate text-white py-3 rounded-lg mt-5 disabled:opacity-50"
+                className="w-full bg-crumble-primary text-white py-3 rounded-lg mt-5 disabled:opacity-50 hover:bg-crumble-secondary transition disabled:hover:bg-crumble-primary"
               >
                 Confirmar pedido
               </button>
