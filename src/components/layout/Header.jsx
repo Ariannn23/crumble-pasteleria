@@ -63,11 +63,6 @@ const Header = () => {
                   Productos
                 </span>
               </Link>
-              <a href="/#nosotros" className="hover:text-crumble-rose">
-                <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
-                  Nosotros
-                </span>
-              </a>
 
               {/* CATEGORÍAS */}
               <button
@@ -80,7 +75,7 @@ const Header = () => {
                 Categorías <FiChevronDown />
               </button>
 
-              <Link to="/shop" className="hover:text-crumble-rose">
+              <Link to="/tiendas" className="hover:text-crumble-rose">
                 <span className="relative inline-block after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-crumble-rose after:transition-all after:duration-300 hover:after:w-full">
                   Tiendas
                 </span>
@@ -146,15 +141,9 @@ const Header = () => {
               >
                 Productos
               </Link>
-              <a
-                href="/#nosotros"
-                className="hover:text-crumble-rose"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Nosotros
-              </a>
+
               <Link
-                to="/shop"
+                to="/tiendas"
                 className="hover:text-crumble-rose"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -176,7 +165,7 @@ const Header = () => {
           style={{ left: `${dropdownPosition.left}px` }}
         >
           <div className="w-48 bg-crumble-dark shadow-lg">
-            {["Tortas", "Cheesecakes", "Postres", "Dulces", "Porciones"].map(
+            {["Tortas", "Cheesecakes", "Dulces", "Porciones", "Salados"].map(
               (cat) => (
                 <Link
                   key={cat}

@@ -50,9 +50,10 @@ export const CartProvider = ({ children }) => {
     });
 
     // mostrar notificación breve (solo vía contexto para evitar duplicados)
+    // mostrar notificación breve (solo vía contexto para evitar duplicados)
     setNotification({
       open: true,
-      message: `${product.name} agregado al carrito`,
+      product: product, // Pasar objeto completo
     });
     if (notificationTimeout.current) clearTimeout(notificationTimeout.current);
     // mantener el timeout alineado con el toast (5s)

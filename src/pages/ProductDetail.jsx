@@ -15,7 +15,7 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#fff7ed] flex items-center justify-center">
+      <div className="min-h-screen bg-[#ffe8d6] flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-heading mb-4">Producto no encontrado</h2>
           <button
@@ -43,7 +43,7 @@ const ProductDetail = () => {
   const decrementQuantity = () => setQuantity((q) => Math.max(1, q - 1));
 
   return (
-    <main className="min-h-screen bg-[#fff7ed] page-transition">
+    <main className="min-h-screen bg-[#ffe8d6] page-transition">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Botón Regresar */}
         <button

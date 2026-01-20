@@ -14,101 +14,128 @@ const OrderTicket = ({ open, onClose, order, onWhatsApp }) => {
   return (
     <>
       {/* OVERLAY */}
-      <div className="fixed inset-0 bg-black/40 z-50" />
+      <div className="fixed inset-0 bg-black/40 z-[60]  transition-opacity" />
 
       {/* TICKET */}
-      <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
-        <div className="bg-white w-full max-w-sm rounded-xl shadow-xl p-5 text-sm animate-scale-in">
-          {/* HEADER */}
-          <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-2">
-              <FiCheckCircle className="text-crumble-chocolate" />
-              <h2 className="font-heading text-lg">Pedido confirmado</h2>
+      <div className="fixed inset-0 z-[70] flex items-center justify-center px-4">
+        <div className="bg-[#fffaf5] w-full max-w-sm h-[650px] rounded-none sm:rounded-2xl shadow-2xl p-0 overflow-hidden animate-scale-in relative before:absolute before:inset-x-0 before:top-0 before:h-2 before:bg-[repeating-linear-gradient(90deg,transparent,transparent_10px,#000_10px,#000_20px)] before:opacity-10 after:absolute after:inset-x-0 after:bottom-0 after:h-2 after:bg-[repeating-linear-gradient(90deg,transparent,transparent_10px,#000_10px,#000_20px)] after:opacity-10 flex flex-col">
+          {/* CONTENT WRAPPER WITH TICKET HOLES EFFECT */}
+          <div className="p-6 sm:p-8 relative flex-1 flex flex-col h-full overflow-hidden">
+            {/* HEADER */}
+            <div className="text-center mb-4 shrink-0">
+              <div className="mx-auto w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-2 animate-bounce">
+                <FiCheckCircle className="text-green-600" size={28} />
+              </div>
+              <h2 className="font-heading text-xl text-crumble-dark font-bold">
+                ¡Pedido Confirmado!
+              </h2>
+              <p className="text-gray-500 text-xs mt-1">
+                Gracias por tu preferencia
+              </p>
             </div>
-            <button onClick={onClose}>
-              <FiX />
-            </button>
-          </div>
 
-          {/* DATOS */}
-          <div className="mb-3 space-y-1 text-sm">
-            <p className="flex items-center gap-2">
-              <FiUser /> <strong>Cliente:</strong> {order?.name}
-            </p>
-            <p className="flex items-center gap-2">
-              <FiPhone /> <strong>Teléfono:</strong> {order?.phone}
-            </p>
-            <p className="flex items-center gap-2">
-              <FiMapPin /> <strong>Entrega:</strong>{" "}
-              {order?.deliveryType === "pickup"
-                ? "Recojo en tienda"
-                : "Delivery"}
-            </p>
-            {order?.deliveryType === "pickup" && (
-              <div className="mt-2 p-2 border rounded-lg flex items-start gap-3">
-                <FiMapPin className="mt-1 text-crumble-chocolate" />
-                <div>
-                  <p className="font-medium">Nuestra tienda</p>
-                  <p className="text-xs text-gray-500">
-                    Jr. Principal 123, Centro — Horario: 9:00 - 20:00
-                  </p>
-                  <div className="w-full h-24 bg-gray-100 rounded mt-2 flex items-center justify-center text-xs text-gray-400">
-                    Mini mapa (referencia)
+            {/* DIVIDER */}
+            <div className="border-t-2 border-dashed border-crumble-peach/50 my-4 relative shrink-0">
+              <div className="absolute -left-8 -top-3 w-6 h-6 bg-gray-800 rounded-full sm:hidden"></div>
+              <div className="absolute -right-8 -top-3 w-6 h-6 bg-gray-800 rounded-full sm:hidden"></div>
+            </div>
+
+            {/* SCROLLABLE CONTENT AREA */}
+            <div className="flex-1 overflow-y-auto pr-2 space-y-4 min-h-0">
+              {/* DATOS */}
+              <div className="space-y-2 text-sm text-gray-700 bg-white p-4 rounded-xl border border-crumble-peach/30 shadow-sm shrink-0">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Cliente</span>
+                  <span className="font-semibold text-crumble-dark max-w-[60%] text-right truncate">
+                    {order?.name}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Teléfono</span>
+                  <span className="font-medium">{order?.phone}</span>
+                </div>
+
+                <div className="flex justify-between items-start">
+                  <span className="text-gray-500">Entrega</span>
+                  <span className="font-medium text-right bg-crumble-cream px-2 py-0.5 rounded text-crumble-dark text-xs">
+                    {order?.deliveryType === "pickup"
+                      ? "Recojo en tienda"
+                      : "Delivery"}
+                  </span>
+                </div>
+
+                {order?.deliveryType === "delivery" && order?.address && (
+                  <div className="flex justify-between items-start">
+                    <span className="text-gray-500">Dirección</span>
+                    <span className="font-medium text-right max-w-[60%] leading-tight">
+                      {order.address}
+                    </span>
                   </div>
+                )}
+
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Pago</span>
+                  <span className="font-medium capitalize flex items-center gap-1">
+                    {order?.paymentMethod === "cash" ? (
+                      <>
+                        Efectivo <FiDollarSign />
+                      </>
+                    ) : order?.paymentMethod === "card" ? (
+                      <>
+                        Tarjeta <FiCreditCard />
+                      </>
+                    ) : (
+                      order?.paymentMethod
+                    )}
+                  </span>
                 </div>
               </div>
-            )}
 
-            {order?.address && (
-              <p className="flex items-center gap-2">
-                <FiMapPin /> <strong>Dirección:</strong> {order.address}
-              </p>
-            )}
-
-            <p className="flex items-center gap-2">
-              {order?.paymentMethod === "cash" ? (
-                <>
-                  <FiDollarSign /> <strong>Pago:</strong> Efectivo
-                </>
-              ) : order?.paymentMethod === "card" ? (
-                <>
-                  <FiCreditCard /> <strong>Pago:</strong> Tarjeta
-                </>
-              ) : (
-                <>
-                  <FiCreditCard /> <strong>Pago:</strong> {order?.paymentMethod}
-                </>
-              )}
-            </p>
-          </div>
-
-          {/* PRODUCTOS */}
-          <div className="border-t border-b py-2 mb-3">
-            {order?.items?.map((item) => (
-              <div key={item.id} className="flex justify-between text-xs py-1">
-                <span>
-                  <strong className="mr-1">{item.qty}×</strong> {item.name}
-                </span>
-                <span className="font-medium">
-                  S/. {(item.qty * item.price).toFixed(2)}
-                </span>
+              {/* PRODUCTOS SUMMARY */}
+              <div className="shrink-0">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  Resumen del pedido
+                </p>
+                <div className="bg-gray-50 rounded-xl p-3 space-y-2">
+                  {order?.items?.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex justify-between text-sm py-1 border-b border-gray-100 last:border-0"
+                    >
+                      <span className="font-medium text-gray-800">
+                        {item.qty}× {item.name}
+                      </span>
+                      <span className="text-gray-600">
+                        S/. {(item.qty * item.price).toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between font-bold text-lg mt-3 px-2 text-crumble-dark">
+                  <span>Total</span>
+                  <span>S/. {order?.total?.toFixed(2)}</span>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {/* TOTAL */}
-          <div className="flex justify-between font-semibold mb-4 text-sm">
-            <span>Total</span>
-            <span>S/. {order?.total?.toFixed(2)}</span>
-          </div>
+            {/* FOOTER BUTTONS - Fixed at bottom */}
+            <div className="space-y-2 mt-4 shrink-0">
+              <button
+                onClick={onWhatsApp}
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 rounded-xl font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-green-200 transition-all transform hover:scale-[1.02]"
+              >
+                <FiSend size={18} /> Enviar a WhatsApp
+              </button>
 
-          {/* WHATSAPP */}
-          <button
-            onClick={onWhatsApp}
-            className="w-full bg-green-500 text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2"
-          >
-            <FiSend /> Enviar confirmación por WhatsApp
-          </button>
+              <button
+                onClick={onClose}
+                className="w-full text-gray-400 hover:text-gray-600 text-sm font-medium py-2"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>

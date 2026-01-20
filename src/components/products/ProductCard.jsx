@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
         {/* Botón de ver detalles (ojo) */}
         <Link
           to={`/product/${product.id}`}
-          className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-crumble-primary p-2 rounded-full shadow-lg hover:bg-crumble-primary hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
+          className="absolute top-2 right-2 bg-white/90 text-crumble-primary p-2 rounded-full shadow-lg hover:bg-crumble-primary hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
           aria-label={`Ver detalles de ${product.name}`}
         >
           <FiEye size={18} />

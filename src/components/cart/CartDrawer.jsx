@@ -1,4 +1,4 @@
-import { FiX, FiTrash2 } from "react-icons/fi";
+import { FiX, FiTrash2, FiShoppingCart, FiShoppingBag } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 import { useState } from "react";
 import CheckoutModal from "./CheckoutModal";
@@ -20,45 +20,62 @@ const CartDrawer = ({ open, onClose }) => {
   return (
     <>
       {/* OVERLAY */}
-      <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black/40 z-40  transition-opacity"
+        onClick={onClose}
+      />
 
       {/* DRAWER */}
-      <div className="fixed right-0 top-0 h-full w-80 bg-white z-50 shadow-xl flex flex-col animate-slide-in">
+      <div className="fixed right-0 top-0 h-full w-80 sm:w-96 bg-[#fffaf5] z-50 shadow-2xl flex flex-col animate-slide-in border-l-4 border-crumble-primary rounded-l-2xl overflow-hidden">
         {/* HEADER */}
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="font-heading text-lg">Tu carrito</h2>
-          <button onClick={onClose}>
-            <FiX size={20} />
+        <div className="flex justify-between items-center p-5 bg-gradient-to-r from-crumble-cream to-[#fffaf5] border-b border-crumble-peach/30">
+          <h2 className="font-heading text-xl text-crumble-dark tracking-wide flex items-center gap-2">
+            Tu Carrito <FiShoppingCart className="text-crumble-primary" />
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-crumble-dark p-2 rounded-full hover:bg-crumble-rose/20 hover:rotate-90 transition-all duration-300 transform"
+          >
+            <FiX size={24} />
           </button>
         </div>
 
         {/* BODY */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {cartItems.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center">
-              Tu carrito está vacío
-            </p>
+            <div className="h-full flex flex-col justify-center items-center text-center space-y-4 opacity-60">
+              <FiShoppingBag size={64} className="text-crumble-peach" />
+              <p className="font-heading text-crumble-secondary text-lg">
+                ¡Tu carrito está vacío!
+              </p>
+              <p className="text-sm text-gray-500">
+                Agrega algunas delicias para comenzar.
+              </p>
+            </div>
           ) : (
             cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex justify-between items-start border-b pb-3"
+                className="group relative flex justify-between items-start bg-white p-4 rounded-xl shadow-sm border border-crumble-peach/20 hover:shadow-md hover:border-crumble-rose/40 hover:-translate-y-1 transition-all duration-300"
               >
-                <div>
-                  <p className="font-medium text-sm">{item.name}</p>
-                  <p className="text-xs text-gray-500">
-                    {item.qty} × S/. {item.price.toFixed(2)}
+                <div className="flex-1 pr-4">
+                  <p className="font-heading text-crumble-dark font-semibold text-base mb-1">
+                    {item.name}
                   </p>
-                  <p className="text-sm font-semibold mt-1">
-                    S/. {(item.qty * item.price).toFixed(2)}
-                  </p>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span className="bg-crumble-cream px-2 py-0.5 rounded-md text-xs font-medium text-crumble-dark">
+                      x{item.qty}
+                    </span>
+                    <span>S/. {(item.qty * item.price).toFixed(2)}</span>
+                  </div>
                 </div>
 
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-crumble-rose p-2 rounded-full hover:bg-crumble-primary hover:text-white transition-all duration-300 hover:scale-110 hover:rotate-12 shadow-sm"
+                  title="Eliminar producto"
                 >
-                  <FiTrash2 />
+                  <FiTrash2 size={18} />
                 </button>
               </div>
             ))
@@ -67,10 +84,12 @@ const CartDrawer = ({ open, onClose }) => {
 
         {/* FOOTER */}
         {cartItems.length > 0 && (
-          <div className="p-4 border-t space-y-3">
-            <div className="flex justify-between font-semibold text-lg">
-              <span>Total</span>
-              <span>S/. {total.toFixed(2)}</span>
+          <div className="p-6 bg-white border-t border-crumble-peach/30 shadow-[0_-5px_15px_rgba(0,0,0,0.02)] space-y-4">
+            <div className="flex justify-between items-end">
+              <span className="text-gray-500 font-medium">Subtotal</span>
+              <span className="font-heading text-2xl text-crumble-dark font-bold">
+                S/. {total.toFixed(2)}
+              </span>
             </div>
 
             <Button
@@ -78,8 +97,9 @@ const CartDrawer = ({ open, onClose }) => {
               size="lg"
               fullWidth
               onClick={() => setCheckoutOpen(true)}
+              className="shadow-lg shadow-crumble-primary/30 hover:shadow-crumble-primary/50"
             >
-              Realizar pedido
+              Confirmar Compra
             </Button>
           </div>
         )}

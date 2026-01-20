@@ -66,39 +66,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* HISTORIA + IMAGEN FIJA */}
-      <section
-        ref={historyRef}
-        className="py-12 bg-crumble-cream scroll-fade-up"
-      >
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="font-heading text-3xl mb-8">Nuestra Historia</h2>
-            <p className="text-gray-700 mb-3">
-              Crumble nació del amor por lo hecho a mano y el deseo de crear
-              momentos memorables alrededor de un postre. Desde una pequeña
-              cocina hasta convertirse en una pastelería local, cada receta
-              refleja dedicación y cariño. Nos especializamos en tortas
-              personalizadas y postres para eventos que se recuerdan.
-            </p>
-            <p className="text-gray-700">
-              Utilizamos ingredientes frescos y técnicas cuidadas para ofrecer
-              texturas y sabores equilibrados. Puedes recoger tu pedido en
-              tienda o pedir delivery; siempre con presentación lista para
-              disfrutar.
-            </p>
-          </div>
-
-          <div className="w-full h-64 bg-gray-100 rounded overflow-hidden">
-            <img
-              src="/images/negocio3.jpg"
-              alt="Nuestra tienda"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* PRODUCTOS */}
       <section ref={catalogRef} className="py-12 scroll-fade-up">
         <div className="max-w-7xl mx-auto px-6">

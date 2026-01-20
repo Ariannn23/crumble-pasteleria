@@ -32,7 +32,7 @@ const Shop = () => {
   }, [query, category]);
 
   return (
-    <main className="min-h-screen bg-[#fff7ed] page-transition">
+    <main className="min-h-screen bg-[#ffe8d6] page-transition">
       <div className="max-w-7xl mx-auto px-6 py-6">
         <header className="mb-6">
           <h1 className="text-4xl font-heading">Tienda</h1>
