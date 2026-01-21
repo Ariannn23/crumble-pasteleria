@@ -4,6 +4,7 @@ import managerImg from "../assets/bakery_manager_man_1768949590829.png";
 import chefImg from "../assets/bakery_chef_woman_1768949547936.png";
 import bakerImg from "../assets/bakery_baker_man_1768949562425.png";
 import serverImg from "../assets/bakery_server_woman_1768949577434.png";
+import buildingImg from "../assets/foto_negocio.png";
 
 const TeamMember = ({ name, role, image }) => (
   <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group">
@@ -74,7 +75,7 @@ const About = () => {
           </div>
           <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl rotate-2 hover:rotate-0 transition-transform duration-500">
             <img
-              src="/src/assets/foto_negocio.png"
+              src={buildingImg}
               alt="Fachada Crumble"
               className="w-full h-full object-cover"
             />
