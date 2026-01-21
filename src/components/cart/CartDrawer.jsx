@@ -1,4 +1,4 @@
-import { FiX, FiTrash2, FiShoppingCart, FiShoppingBag } from "react-icons/fi";
+import { FiX, FiTrash2, FiShoppingCart } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 import { useState } from "react";
 import CheckoutModal from "./CheckoutModal";
