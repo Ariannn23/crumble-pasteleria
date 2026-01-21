@@ -1,11 +1,8 @@
 import {
   FiX,
   FiCheckCircle,
-  FiMapPin,
   FiCreditCard,
-  FiPhone,
   FiSend,
-  FiUser,
   FiDollarSign,
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";

@@ -41,12 +41,11 @@ const NotificationToast = () => {
   // mirror context notification into queue
   useEffect(() => {
     if (notification?.open && notification?.product) {
-      addToast(notification.product); // eslint-disable-line react-hooks/set-state-in-effect
+      addToast(notification.product);
       // clear context notification
       setNotification({ open: false, product: null });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notification?.open]);
+  }, [notification, setNotification]);
 
   // fallback event listener (legacy support if needed)
   useEffect(() => {

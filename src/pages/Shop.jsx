@@ -1,21 +1,13 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/products/ProductCard";
 import { products } from "../data/products";
 
 const Shop = () => {
-  const [searchParams] = useSearchParams();
-  const categoryFromUrl = searchParams.get("category");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const category = searchParams.get("category") || "Todos";
 
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState(categoryFromUrl || "Todos");
-
-  // Actualizar categoría cuando cambia el parámetro URL
-  useEffect(() => {
-    if (categoryFromUrl) {
-      setCategory(categoryFromUrl);
-    }
-  }, [categoryFromUrl]);
 
   const categories = useMemo(() => {
     const set = new Set(products.map((p) => p.category));
@@ -31,6 +23,15 @@ const Shop = () => {
       list = list.filter((p) => p.category === category);
     return list;
   }, [query, category]);
+
+  const handleCategoryChange = (newCategory) => {
+    if (newCategory === "Todos") {
+      searchParams.delete("category");
+      setSearchParams(searchParams);
+    } else {
+      setSearchParams({ category: newCategory });
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#ffe8d6] page-transition">
@@ -64,7 +65,7 @@ const Shop = () => {
                 {categories.map((c) => (
                   <button
                     key={c}
-                    onClick={() => setCategory(c)}
+                    onClick={() => handleCategoryChange(c)}
                     className={`text-left px-4 py-2 text-sm transition-all duration-300 font-medium whitespace-nowrap border rounded-tl-xl rounded-br-xl rounded-tr-none rounded-bl-none ${
                       category === c
                         ? "bg-crumble-primary text-white border-crumble-primary shadow-md transform scale-105" // Active state
