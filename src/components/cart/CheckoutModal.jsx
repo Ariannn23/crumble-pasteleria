@@ -28,13 +28,24 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
   const [deliveryType, setDeliveryType] = useState("delivery");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cash, setCash] = useState("");
-
   const [form, setForm] = useState({
     name: "",
     phone: "",
     address: "",
     notes: "",
   });
+
+  const [receiptType, setReceiptType] = useState("simple"); // simple, dni, invoice
+  const [dni, setDni] = useState("");
+  const [ruc, setRuc] = useState("");
+  const [businessName, setBusinessName] = useState("");
+
+  const isReceiptValid = () => {
+    if (receiptType === "dni") return dni.length >= 8;
+    if (receiptType === "invoice")
+      return ruc.length === 11 && businessName.length > 3;
+    return true;
+  };
 
   if (!open) return null;
 
@@ -49,7 +60,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
       {/* MODAL */}
       <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div
-          className="bg-[#fffaf5] w-full max-w-md rounded-2xl shadow-2xl p-6 animate-scale-in border border-crumble-peach/30"
+          className="bg-[#fffaf5] w-full max-w-md rounded-2xl shadow-2xl p-6 animate-scale-in border border-crumble-peach/30 max-h-[90vh] overflow-y-auto custom-scrollbar"
           onClick={(e) => e.stopPropagation()}
         >
           {/* HEADER */}
@@ -62,7 +73,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
               )}
               {step === 2 && (
                 <>
-                  <FiCreditCard /> Método de pago
+                  <FiCreditCard /> Pago y Comprobante
                 </>
               )}
               {step === 3 && (
@@ -204,6 +215,90 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
           {/* PASO 2 */}
           {step === 2 && (
             <>
+              {/* COMPROBANTE DE PAGO SECTION */}
+              <div className="mb-6">
+                <p className="text-sm font-medium mb-3 text-crumble-secondary">
+                  Tipo de Comprobante
+                </p>
+                <div className="flex gap-2 mb-4">
+                  <button
+                    onClick={() => setReceiptType("simple")}
+                    className={`flex-1 py-2 px-1 text-xs sm:text-sm rounded-lg border transition-all duration-200 font-medium ${
+                      receiptType === "simple"
+                        ? "bg-crumble-primary text-white border-crumble-primary"
+                        : "bg-white text-gray-600 border-crumble-peach/50"
+                    }`}
+                  >
+                    Boleta Simple
+                  </button>
+                  <button
+                    onClick={() => setReceiptType("dni")}
+                    className={`flex-1 py-2 px-1 text-xs sm:text-sm rounded-lg border transition-all duration-200 font-medium ${
+                      receiptType === "dni"
+                        ? "bg-crumble-primary text-white border-crumble-primary"
+                        : "bg-white text-gray-600 border-crumble-peach/50"
+                    }`}
+                  >
+                    Boleta con DNI
+                  </button>
+                  <button
+                    onClick={() => setReceiptType("invoice")}
+                    className={`flex-1 py-2 px-1 text-xs sm:text-sm rounded-lg border transition-all duration-200 font-medium ${
+                      receiptType === "invoice"
+                        ? "bg-crumble-primary text-white border-crumble-primary"
+                        : "bg-white text-gray-600 border-crumble-peach/50"
+                    }`}
+                  >
+                    Factura
+                  </button>
+                </div>
+
+                {/* CONDITIONAL INPUTS */}
+                {receiptType === "dni" && (
+                  <div className="animate-fade-in mb-4">
+                    <label className="block text-xs font-semibold text-crumble-dark mb-1 ml-1">
+                      DNI (8 dígitos)
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Ingrese su DNI"
+                      className="w-full bg-white border border-crumble-peach/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-crumble-primary/20 focus:border-crumble-primary transition-all"
+                      value={dni}
+                      onChange={(e) => setDni(e.target.value)}
+                    />
+                  </div>
+                )}
+
+                {receiptType === "invoice" && (
+                  <div className="animate-fade-in mb-4 space-y-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-crumble-dark mb-1 ml-1">
+                        RUC (11 dígitos)
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="Ingrese su RUC"
+                        className="w-full bg-white border border-crumble-peach/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-crumble-primary/20 focus:border-crumble-primary transition-all"
+                        value={ruc}
+                        onChange={(e) => setRuc(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-crumble-dark mb-1 ml-1">
+                        RAZÓN SOCIAL
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Ingrese nombre de la empresa"
+                        className="w-full bg-white border border-crumble-peach/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-crumble-primary/20 focus:border-crumble-primary transition-all"
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="bg-white p-4 rounded-xl border border-crumble-peach/30 mb-6 text-center shadow-sm">
                 <p className="text-sm text-gray-500 mb-1">Total a pagar</p>
                 <p className="font-heading text-3xl text-crumble-dark">
@@ -211,6 +306,9 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
                 </p>
               </div>
 
+              <p className="text-sm font-medium mb-3 text-crumble-secondary">
+                Método de Pago
+              </p>
               <div className="flex gap-3 mb-6">
                 <button
                   onClick={() => setPaymentMethod("cash")}
@@ -252,6 +350,7 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
               <button
                 disabled={
                   !paymentMethod ||
+                  !isReceiptValid() ||
                   (paymentMethod === "cash" &&
                     (isNaN(parseFloat(cash)) || parseFloat(cash) < totalToPay))
                 }
@@ -263,6 +362,10 @@ const CheckoutModal = ({ open, onClose, onContinue, total = 0, cart = [] }) => {
                     notes: form.notes,
                     deliveryType,
                     paymentMethod,
+                    receiptType,
+                    dni,
+                    ruc,
+                    businessName,
                     cash:
                       paymentMethod === "cash"
                         ? parseFloat(cash || 0)
